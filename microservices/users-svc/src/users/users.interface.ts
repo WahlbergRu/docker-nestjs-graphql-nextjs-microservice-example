@@ -1,4 +1,4 @@
-import { FindAndCountOptions, FindOptions } from 'sequelize/types'
+import { FindAndCountOptions, FindOptions } from 'sequelize'
 
 import { User } from './user.model'
 import { UserDto } from './user.dto'

@@ -12,7 +12,7 @@ import { ICommentsService, ICommentUpdateInput } from './comments.interface'
 
 import { Comment } from './comment.model'
 import { CommentDto } from './comment.dto'
-import { FindOptions } from 'sequelize/types';
+import { FindOptions } from 'sequelize'
 
 const { map } = Aigle
 
@@ -35,7 +35,7 @@ export class CommentsController {
       where: !isEmpty(query.where) ? JSON.parse(query.where) : undefined,
       order: !isEmpty(query.orderBy) ? query.orderBy : undefined,
       limit: !isNil(query.limit) ? query.limit : 25,
-      offset: !isNil(query.offset) ? query.limit : 25,
+      offset: !isNil(query.offset) ? query.limit : 25
     })
 
     return results

@@ -54,4 +54,4 @@ import { MailerModule } from './mailer/mailer.module'
     MailerModule
   ]
 })
-export class AppModule { }
+export class AppModule {}

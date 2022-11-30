@@ -1,4 +1,3 @@
-import * as paginate from 'sequelize-cursor-pagination'
 import { Column, Model, Table, DataType, Index } from 'sequelize-typescript'
 
 @Table({

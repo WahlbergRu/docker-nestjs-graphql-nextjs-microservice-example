@@ -93,4 +93,4 @@ const operatorsAliases: OperatorsAliases = {
     UsersModule
   ]
 })
-export class AppModule { }
+export class AppModule {}

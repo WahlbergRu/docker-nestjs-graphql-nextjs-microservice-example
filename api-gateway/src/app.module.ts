@@ -29,7 +29,7 @@ import { ApolloDriver } from '@nestjs/apollo'
             safe: true,
             prettyPrint: configService.get<string>('NODE_ENV') !== 'production'
           }
-        };
+        }
       }
     }),
     GraphQLModule.forRootAsync({
@@ -76,4 +76,4 @@ import { ApolloDriver } from '@nestjs/apollo'
     CommentsModule
   ]
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,7 +1,7 @@
 import { Inject, OnModuleInit, UseGuards } from '@nestjs/common'
 import { ClientGrpcProxy } from '@nestjs/microservices'
 import { Resolver, Args, Mutation } from '@nestjs/graphql'
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs'
 
 import { PinoLogger } from 'nestjs-pino'
 
@@ -34,13 +34,14 @@ export class UsersMutationResolver implements OnModuleInit {
   @Mutation()
   @UseGuards(GqlAuthGuard)
   async updateProfile(@CurrentUser() user: User, @Args('data') data: UpdateProfileInput): Promise<UserPayload> {
-    const updatedUser: User = await lastValueFrom(this.usersService
-      .update({
+    const updatedUser: User = await lastValueFrom(
+      this.usersService.update({
         id: user.id,
         data: {
           ...data
         }
-      }))
+      })
+    )
 
     return { user: updatedUser }
   }
@@ -48,10 +49,11 @@ export class UsersMutationResolver implements OnModuleInit {
   @Mutation()
   @UseGuards(GqlAuthGuard)
   async updateEmail(@CurrentUser() user: any, @Args('data') data: UpdateEmailInput): Promise<UserPayload> {
-    const { count } = await lastValueFrom(this.usersService
-      .count({
+    const { count } = await lastValueFrom(
+      this.usersService.count({
         where: JSON.stringify({ email: data.email })
-      }))
+      })
+    )
 
     if (count >= 1) throw new Error('Email taken')
 
@@ -59,13 +61,14 @@ export class UsersMutationResolver implements OnModuleInit {
 
     if (!isSame) throw new Error('Error updating email. Kindly check the email or password provided')
 
-    const updatedUser: User = await lastValueFrom(this.usersService
-      .update({
+    const updatedUser: User = await lastValueFrom(
+      this.usersService.update({
         id: user.id,
         data: {
           ...data
         }
-      }))
+      })
+    )
 
     return { user: updatedUser }
   }
@@ -95,11 +98,12 @@ export class UsersMutationResolver implements OnModuleInit {
   @Mutation()
   @UseGuards(GqlAuthGuard)
   async deleteAccount(@CurrentUser() user: User): Promise<DeleteAccountPayload> {
-    return lastValueFrom(this.usersService
-      .destroy({
+    return lastValueFrom(
+      this.usersService.destroy({
         where: JSON.stringify({
           id: user.id
         })
-      }))
+      })
+    )
   }
 }

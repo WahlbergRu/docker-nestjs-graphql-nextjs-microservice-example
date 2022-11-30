@@ -1,7 +1,7 @@
 import { Inject, OnModuleInit, UseGuards } from '@nestjs/common'
 import { ClientGrpcProxy } from '@nestjs/microservices'
 import { Query, Resolver, Args } from '@nestjs/graphql'
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs'
 
 import { isEmpty, merge } from 'lodash'
 import { PinoLogger } from 'nestjs-pino'
@@ -48,11 +48,12 @@ export class UsersQueryResolver implements OnModuleInit {
 
     merge(query, await this.queryUtils.buildQuery(filterBy, orderBy, limit, offset))
 
-    return await lastValueFrom(this.usersService
-      .find({
+    return await lastValueFrom(
+      this.usersService.find({
         ...query,
         where: JSON.stringify(query.where)
-      }))
+      })
+    )
   }
 
   @Query('user')
@@ -70,11 +71,12 @@ export class UsersQueryResolver implements OnModuleInit {
 
     merge(query, await this.queryUtils.getFilters(filterBy))
 
-    const { count } = await lastValueFrom(this.usersService
-      .count({
+    const { count } = await lastValueFrom(
+      this.usersService.count({
         ...query,
         where: JSON.stringify(query.where)
-      }));
+      })
+    )
 
     return count
   }

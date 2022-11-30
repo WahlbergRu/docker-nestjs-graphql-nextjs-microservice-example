@@ -93,4 +93,4 @@ const operatorsAliases: OperatorsAliases = {
     CommentsModule
   ]
 })
-export class AppModule { }
+export class AppModule {}

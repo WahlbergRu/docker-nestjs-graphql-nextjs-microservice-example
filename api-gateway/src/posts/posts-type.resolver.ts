@@ -1,7 +1,7 @@
 import { Inject, OnModuleInit } from '@nestjs/common'
 import { ClientGrpcProxy } from '@nestjs/microservices'
 import { Resolver, Args, Parent, ResolveField } from '@nestjs/graphql'
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs'
 
 import { isEmpty, merge } from 'lodash'
 import { PinoLogger } from 'nestjs-pino'
@@ -40,10 +40,11 @@ export class PostsTypeResolver implements OnModuleInit {
 
   @ResolveField('author')
   async getAuthor(@Parent() post: PostDto): Promise<User> {
-    return await lastValueFrom(this.usersService
-      .findById({
+    return await lastValueFrom(
+      this.usersService.findById({
         id: post.author
-      }));
+      })
+    )
   }
 
   @ResolveField('comments')
@@ -61,10 +62,11 @@ export class PostsTypeResolver implements OnModuleInit {
 
     merge(query, await this.queryUtils.buildQuery(filterBy, orderBy, limit, offset))
 
-    return await lastValueFrom(this.commentsService
-      .find({
+    return await lastValueFrom(
+      this.commentsService.find({
         ...query,
         where: JSON.stringify(query.where)
-      }))
+      })
+    )
   }
 }

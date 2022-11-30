@@ -10,7 +10,7 @@ import { IUsersService } from './users.interface'
 
 import { User } from './user.model'
 import { UserDto } from './user.dto'
-import { FindAndCountOptions, FindOptions } from 'sequelize/types';
+import { FindAndCountOptions, FindOptions } from 'sequelize'
 
 const { map } = Aigle
 
@@ -34,7 +34,7 @@ export class UsersController {
 
     this.logger.info('UsersController#findAll.result %o', result)
 
-    return result;
+    return result
   }
 
   @GrpcMethod('UsersService', 'findById')

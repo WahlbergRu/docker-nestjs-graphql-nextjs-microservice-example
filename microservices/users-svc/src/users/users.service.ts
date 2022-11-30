@@ -1,7 +1,7 @@
 import { isEmpty } from 'lodash'
 import { PinoLogger } from 'nestjs-pino'
 import { Injectable } from '@nestjs/common'
-import { FindAndCountOptions, FindOptions } from 'sequelize/types'
+import { FindAndCountOptions, FindOptions } from 'sequelize'
 import { InjectModel } from '@nestjs/sequelize'
 
 import { IUsersService } from './users.interface'

@@ -12,7 +12,7 @@ import { IPostsService, IPostUpdateInput } from './posts.interface'
 
 import { Post } from './post.model'
 import { PostDto } from './post.dto'
-import { FindAndCountOptions, FindOptions } from 'sequelize/types';
+import { FindAndCountOptions, FindOptions } from 'sequelize'
 
 const { map } = Aigle
 
@@ -35,7 +35,7 @@ export class PostsController {
       where: !isEmpty(query.where) ? JSON.parse(query.where) : undefined,
       order: !isEmpty(query.orderBy) ? query.orderBy : undefined,
       limit: !isNil(query.limit) ? query.limit : 25,
-      offset: !isNil(query.limit) ? query.offset : 25,
+      offset: !isNil(query.limit) ? query.offset : 25
     })
 
     this.logger.info('PostsController#findAll.result %o', result)

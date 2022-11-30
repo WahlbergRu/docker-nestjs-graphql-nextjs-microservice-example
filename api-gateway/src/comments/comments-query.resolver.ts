@@ -1,7 +1,7 @@
 import { Inject, OnModuleInit } from '@nestjs/common'
 import { ClientGrpcProxy } from '@nestjs/microservices'
 import { Query, Resolver, Args } from '@nestjs/graphql'
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs'
 
 import { isEmpty, merge } from 'lodash'
 import { PinoLogger } from 'nestjs-pino'
@@ -45,11 +45,12 @@ export class CommentsQueryResolver implements OnModuleInit {
 
     merge(query, await this.queryUtils.buildQuery(filterBy, orderBy, limit, offset))
 
-    return await lastValueFrom(this.commentsService
-      .find({
+    return await lastValueFrom(
+      this.commentsService.find({
         ...query,
         where: JSON.stringify(query.where)
-      }))
+      })
+    )
   }
 
   @Query('commentCount')
@@ -60,11 +61,12 @@ export class CommentsQueryResolver implements OnModuleInit {
 
     merge(query, await this.queryUtils.getFilters(filterBy))
 
-    const { count } = await lastValueFrom(this.commentsService
-      .count({
+    const { count } = await lastValueFrom(
+      this.commentsService.count({
         ...query,
         where: JSON.stringify(query.where)
-      }))
+      })
+    )
 
     return count
   }
