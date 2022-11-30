@@ -1,0 +1,11 @@
+type ErrorPayload {
+	field: String
+	message: [String]
+}
+
+type PageInfo {
+  startCursor: String!
+  endCursor: String!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
