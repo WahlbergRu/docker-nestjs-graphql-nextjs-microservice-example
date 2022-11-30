@@ -36,10 +36,9 @@ export class UsersQueryResolver implements OnModuleInit {
   @UseGuards(GqlAuthGuard)
   async getUsers(
     @Args('q') q: string,
-    @Args('first') first: number,
-    @Args('last') last: number,
-    @Args('before') before: string,
-    @Args('after') after: string,
+
+    @Args('limit') limit: number,
+    @Args('offset') offset: number,
     @Args('filterBy') filterBy: any,
     @Args('orderBy') orderBy: string
   ): Promise<UsersConnection> {
@@ -47,7 +46,7 @@ export class UsersQueryResolver implements OnModuleInit {
 
     if (!isEmpty(q)) merge(query, { where: { name: { _iLike: q } } })
 
-    merge(query, await this.queryUtils.buildQuery(filterBy, orderBy, first, last, before, after))
+    merge(query, await this.queryUtils.buildQuery(filterBy, orderBy, limit, offset))
 
     return await lastValueFrom(this.usersService
       .find({
@@ -71,7 +70,7 @@ export class UsersQueryResolver implements OnModuleInit {
 
     merge(query, await this.queryUtils.getFilters(filterBy))
 
-    const { count } = lastValueFrom(this.usersService
+    const { count } = await lastValueFrom(this.usersService
       .count({
         ...query,
         where: JSON.stringify(query.where)

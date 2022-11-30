@@ -41,10 +41,9 @@ export class UsersTypeResolver implements OnModuleInit {
   async getPosts(
     @Parent() user: User,
     @Args('q') q: string,
-    @Args('first') first: number,
-    @Args('last') last: number,
-    @Args('before') before: string,
-    @Args('after') after: string,
+
+    @Args('limit') limit: number,
+    @Args('offset') offset: number,
     @Args('filterBy') filterBy: any,
     @Args('orderBy') orderBy: string
   ): Promise<PostsConnection> {
@@ -52,7 +51,7 @@ export class UsersTypeResolver implements OnModuleInit {
 
     if (!isEmpty(q)) merge(query, { where: { title: { _iLike: q } } })
 
-    merge(query, await this.queryUtils.buildQuery(filterBy, orderBy, first, last, before, after))
+    merge(query, await this.queryUtils.buildQuery(filterBy, orderBy, limit, offset))
 
     return await lastValueFrom(this.postsService
       .find({
@@ -65,10 +64,9 @@ export class UsersTypeResolver implements OnModuleInit {
   async getComments(
     @Parent() user: User,
     @Args('q') q: string,
-    @Args('first') first: number,
-    @Args('last') last: number,
-    @Args('before') before: string,
-    @Args('after') after: string,
+
+    @Args('limit') limit: number,
+    @Args('offset') offset: number,
     @Args('filterBy') filterBy: any,
     @Args('orderBy') orderBy: string
   ): Promise<CommentsConnection> {
@@ -76,7 +74,7 @@ export class UsersTypeResolver implements OnModuleInit {
 
     if (!isEmpty(q)) merge(query, { where: { text: { _iLike: q } } })
 
-    merge(query, await this.queryUtils.buildQuery(filterBy, orderBy, first, last, before, after))
+    merge(query, await this.queryUtils.buildQuery(filterBy, orderBy, limit, offset))
 
     return await lastValueFrom(this.commentsService
       .find({

@@ -42,11 +42,11 @@
     "graphql-type-json": "0.3.2",
     "ioredis": "5.2.4",
     "lodash": "4.17.21",
-    "nestjs-pino": "3.1.1",
     "passport": "0.6.0",
     "passport-jwt": "4.0.0",
-    "pino": "8.7.0",
     "reflect-metadata": "0.1.13",
+    "nestjs-pino": "3.1.1",
+    "pino-http": "8.2.1",
     "rxjs": "7.5.7",
     "ts-morph": "^16.0.0"
   },

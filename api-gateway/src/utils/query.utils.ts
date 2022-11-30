@@ -18,7 +18,7 @@ export class QueryUtils {
 
     if (!isEmpty(orderBy)) {
       if (orderBy.trim().charAt(0) === '-') {
-        Object.assign(queryOrder, { orderBy: [orderBy.trim().substr(1), 'DESC'] })
+        Object.assign(queryOrder, { orderBy: [orderBy.trim().substring(1, 2), 'DESC'] })
       } else {
         Object.assign(queryOrder, { orderBy: [orderBy.trim(), 'ASC'] })
       }
@@ -27,21 +27,14 @@ export class QueryUtils {
     return queryOrder
   }
 
-  async getCursor(first: number, last: number, before: string, after: string): Promise<IQuery> {
+  // TODO: delete?
+  async getCursor(limit: number, offset: number): Promise<IQuery> {
     const queryCursor: IQuery = {}
 
-    if (!isNil(first)) Object.assign(queryCursor, { limit: first })
-
-    if (!isEmpty(after)) {
-      Object.assign(queryCursor, { after, limit: first })
-    } else if (!isEmpty(before)) {
-      Object.assign(queryCursor, { before, limit: last })
-    }
-
-    return queryCursor
+    return Object.assign(queryCursor, { limit, offset })
   }
 
-  async buildQuery(filterBy: Record<string, any>, orderBy: string, first: number, last: number, before: string, after: string): Promise<IQuery> {
-    return merge({}, await this.getFilters(filterBy), await this.getOrder(orderBy), await this.getCursor(first, last, before, after))
+  async buildQuery(filterBy: Record<string, any>, orderBy: string, limit: number, offset: number): Promise<IQuery> {
+    return merge({}, await this.getFilters(filterBy), await this.getOrder(orderBy), await this.getCursor(limit, offset))
   }
 }
