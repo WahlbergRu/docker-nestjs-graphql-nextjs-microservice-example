@@ -1,0 +1,26 @@
+{
+  "name": "nestjs-graphql-microservices",
+  "version": "1.0.0",
+  "description": "A sample GraphQL API Gateway with gRPC back-end microservices built using the NestJS framework.",
+  "scripts": {
+    "docs:proto-gen": "sh scripts/generate-proto-docs.sh",
+    "script:install": "sh scripts/install.sh",
+    "script:lint": "sh scripts/lint.sh",
+    "script:build": "sh scripts/build.sh",
+    "script:copy-protos": "sh scripts/copy-protos.sh",
+    "docker:build": "docker-compose build",
+    "docker:start": "docker-compose up",
+    "docker:teardown": "docker-compose down",
+    "start": "npm run install && npm run lint && npm run build && npm run docker:build && npm run docker:start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:WahlbergRu/docker-nestjs-graphql-nextjs-microservice-example"
+  },
+  "author": "Allen Wahlberg <allin.nikita@yandex.ru> (https://github.com/WahlbergRu)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WahlbergRu/docker-nestjs-graphql-nextjs-microservice-example/issues"
+  },
+  "homepage": "https://github.com/WahlbergRu/docker-nestjs-graphql-nextjs-microservice-example#readme"
+}
