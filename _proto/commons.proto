@@ -11,15 +11,7 @@ message Query {
   string where = 2;
   repeated string orderBy = 3;
   int32 limit = 4;
-  string before = 5;
-  string after = 6;
-}
-
-message PageInfo {
-  string startCursor = 1;
-  string endCursor = 2;
-  bool hasNextPage = 3;
-  bool hasPreviousPage = 4;
+  int32 offset = 5;
 }
 
 message Count {
