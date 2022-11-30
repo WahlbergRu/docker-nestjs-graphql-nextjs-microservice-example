@@ -23,7 +23,7 @@ async function main() {
 
   app.useLogger(app.get(Logger))
 
-  return app.listenAsync(configService.get<number>('GRAPHQL_PORT'))
+  return await app.listen(configService.get<number>('GRAPHQL_PORT'))
 }
 
 main()

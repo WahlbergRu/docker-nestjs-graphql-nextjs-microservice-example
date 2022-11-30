@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 
-import Redis from 'ioredis'
 import { RedisPubSub } from 'graphql-redis-subscriptions'
+import Redis, { RedisOptions } from 'ioredis'
 
 @Module({
   imports: [ConfigModule],
@@ -10,7 +10,7 @@ import { RedisPubSub } from 'graphql-redis-subscriptions'
     {
       provide: 'PubSubService',
       useFactory: async (configService: ConfigService): Promise<RedisPubSub> => {
-        const redisOptions: Redis.RedisOptions = {
+        const redisOptions: RedisOptions = {
           host: configService.get<string>('REDIS_HOST'),
           port: configService.get<number>('REDIS_PORT'),
           password: configService.get<string>('REDIS_PASSWORD'),

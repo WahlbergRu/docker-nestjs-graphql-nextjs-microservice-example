@@ -2,7 +2,7 @@ import { Inject, OnModuleInit, UseGuards } from '@nestjs/common'
 import { ClientGrpcProxy } from '@nestjs/microservices'
 import { Resolver, Args, Mutation } from '@nestjs/graphql'
 
-import { Metadata } from 'grpc'
+import { Metadata } from '@grpc/grpc-js'
 import { PinoLogger } from 'nestjs-pino'
 import { PubSub } from 'graphql-subscriptions'
 

@@ -15,25 +15,29 @@ import { PostsModule } from './posts/posts.module'
 import { UsersModule } from './users/users.module'
 
 import { playgroundQuery } from './graphql/playground-query'
+import { ApolloDriver } from '@nestjs/apollo'
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     LoggerModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        pinoHttp: {
-          safe: true,
-          prettyPrint: configService.get<string>('NODE_ENV') !== 'production'
-        }
-      }),
-      inject: [ConfigService]
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        return {
+          pinoHttp: {
+            safe: true,
+            prettyPrint: configService.get<string>('NODE_ENV') !== 'production'
+          }
+        };
+      }
     }),
     GraphQLModule.forRootAsync({
       imports: [LoggerModule],
-      useFactory: async (logger: PinoLogger): Promise<GqlModuleOptions> => ({
+      driver: ApolloDriver,
+      useFactory: async (logger: PinoLogger) => ({
         path: '/',
-        subscriptions: '/',
+        // subscriptions: '/',
         typePaths: ['./**/*.graphql'],
         resolvers: {
           DateTime: DateTimeResolver,
@@ -72,4 +76,4 @@ import { playgroundQuery } from './graphql/playground-query'
     CommentsModule
   ]
 })
-export class AppModule {}
+export class AppModule { }

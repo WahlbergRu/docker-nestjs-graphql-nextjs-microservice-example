@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs'
-import { Metadata } from 'grpc'
+import { Metadata } from '@grpc/grpc-js'
 
 import { IId, IQuery, ICount } from '../commons/commons.interface'
 import { Post, PostsConnection } from '../graphql/typings'
