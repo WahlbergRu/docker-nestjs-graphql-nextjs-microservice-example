@@ -1,6 +1,7 @@
 import { Inject, OnModuleInit } from '@nestjs/common'
 import { ClientGrpcProxy } from '@nestjs/microservices'
 import { Resolver, Parent, ResolveField } from '@nestjs/graphql'
+import { lastValueFrom } from 'rxjs';
 
 import { PinoLogger } from 'nestjs-pino'
 
@@ -34,19 +35,19 @@ export class CommentsTypeResolver implements OnModuleInit {
 
   @ResolveField('author')
   async getAuthor(@Parent() comment: CommentDto): Promise<User> {
-    return this.usersService
+    return await lastValueFrom(this.usersService
       .findById({
         id: comment.author
-      })
-      .toPromise()
+      }));
   }
 
   @ResolveField('post')
   async getPost(@Parent() comment: CommentDto): Promise<Post> {
-    return this.postsService
-      .findById({
-        id: comment.post
-      })
-      .toPromise()
+    return await lastValueFrom(
+      this.postsService
+        .findById({
+          id: comment.post
+        })
+    );
   }
 }

@@ -1,6 +1,7 @@
 import { Inject, OnModuleInit, UseGuards } from '@nestjs/common'
 import { ClientGrpcProxy } from '@nestjs/microservices'
 import { Resolver, Args, Mutation } from '@nestjs/graphql'
+import { lastValueFrom } from 'rxjs';
 
 import { Metadata } from '@grpc/grpc-js'
 import { PinoLogger } from 'nestjs-pino'
@@ -36,12 +37,11 @@ export class PostsMutationResolver implements OnModuleInit {
   @Mutation()
   @UseGuards(GqlAuthGuard)
   async createPost(@CurrentUser() user: User, @Args('data') data: PostDto): Promise<PostPayload> {
-    const post = await this.postsService
+    const post = await lastValueFrom(this.postsService
       .create({
         ...data,
         author: user.id
-      })
-      .toPromise()
+      }))
 
     this.pubSubService.publish('postAdded', post)
 
@@ -55,7 +55,7 @@ export class PostsMutationResolver implements OnModuleInit {
 
     metadata.add('user', user.id)
 
-    const post = await this.postsService
+    const post = await lastValueFrom(this.postsService
       .update(
         {
           id,
@@ -64,8 +64,7 @@ export class PostsMutationResolver implements OnModuleInit {
           }
         },
         metadata
-      )
-      .toPromise()
+      ))
 
     return { post }
   }
@@ -73,10 +72,9 @@ export class PostsMutationResolver implements OnModuleInit {
   @Mutation()
   @UseGuards(GqlAuthGuard)
   async deletePost(@CurrentUser() user: User, @Args('id') id: string): Promise<DeletePostPayload> {
-    return this.postsService
+    return await lastValueFrom(this.postsService
       .destroy({
         where: JSON.stringify({ id, author: user.id })
-      })
-      .toPromise()
+      }))
   }
 }

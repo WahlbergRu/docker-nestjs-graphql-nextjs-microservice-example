@@ -1,7 +1,7 @@
 import { Inject, OnModuleInit, UseGuards } from '@nestjs/common'
 import { ClientGrpcProxy } from '@nestjs/microservices'
 import { Resolver, Args, Mutation } from '@nestjs/graphql'
-
+import { lastValueFrom } from 'rxjs';
 
 import { Metadata } from '@grpc/grpc-js'
 import { PinoLogger } from 'nestjs-pino'
@@ -36,12 +36,11 @@ export class CommentsMutationResolver implements OnModuleInit {
   @Mutation()
   @UseGuards(GqlAuthGuard)
   async createComment(@CurrentUser() user: User, @Args('data') data: CommentDto): Promise<CommentPayload> {
-    const comment: Comment = await this.commentsService
+    const comment: Comment = await lastValueFrom(this.commentsService
       .create({
         ...data,
         author: user.id
-      })
-      .toPromise()
+      }))
 
     this.pubSubService.publish('commentAdded', comment)
 
