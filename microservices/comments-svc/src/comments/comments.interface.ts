@@ -10,7 +10,6 @@ export interface ICommentUpdateInput {
 
 export interface ICommentsService {
   find(query?: FindAndCountOptions): Promise<FindAndCountOptions<Comment>>
-  findAll(query?: FindOptions): Promise<Comment[]>
   findById(id: string): Promise<Comment>
   findOne(query?: FindOptions): Promise<Comment>
   count(query?: FindOptions): Promise<number>

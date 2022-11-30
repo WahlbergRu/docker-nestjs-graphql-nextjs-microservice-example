@@ -14,7 +14,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "copy:protos": "cpy ../../_proto ./src/_proto"
+    "copy:protos": "cpy \"../../_proto\" \"./src\""
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.7.3",
@@ -56,7 +56,7 @@
     "faker": "^5.5.3",
     "jest": "29.3.1",
     "jest-extended": "3.2.0",
-    "pino-pretty": "9.1.1",
+    "pino-pretty": "^9.1.1",
     "prettier": "2.8.0",
     "rimraf": "3.0.2",
     "ts-jest": "29.0.3",

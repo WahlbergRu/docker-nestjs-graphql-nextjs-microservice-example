@@ -59,19 +59,6 @@ export class CommentsService implements ICommentsService {
     return result
   }
 
-  async findAll(query: FindOptions): Promise<Comment[]> {
-    this.logger.info('CommentsService#findAll.call %o', query)
-
-    const result: Comment[] = await this.repo.findAll({
-      ...query,
-      raw: true
-    })
-
-    this.logger.info('CommentsService#findAll.result %o', result)
-
-    return result
-  }
-
   async count(query?: FindOptions): Promise<number> {
     this.logger.info('CommentsService#count.call %o', query)
 

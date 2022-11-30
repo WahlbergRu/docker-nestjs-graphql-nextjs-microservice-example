@@ -8,6 +8,7 @@
     "script:lint": "sh scripts/lint.sh",
     "script:build": "sh scripts/build.sh",
     "script:copy-protos": "sh scripts/copy-protos.sh",
+    "script:custom": "sh scripts/custom.sh",
     "docker:build": "docker-compose build",
     "docker:start": "docker-compose up",
     "docker:teardown": "docker-compose down",

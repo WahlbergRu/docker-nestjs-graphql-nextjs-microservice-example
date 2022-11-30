@@ -15,7 +15,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "generate:typings": "ts-node ./src/graphql/generate-typings",
-    "copy:protos": "cpy \"../_proto\" \"./src/_proto\""
+    "copy:protos": "cpy \"../_proto\" \"./src\""
   },
   "dependencies": {
     "@apollo/gateway": "^2.2.1",

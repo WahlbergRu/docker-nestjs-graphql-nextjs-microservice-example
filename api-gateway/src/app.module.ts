@@ -27,7 +27,10 @@ import { ApolloDriver } from '@nestjs/apollo'
         return {
           pinoHttp: {
             safe: true,
-            prettyPrint: configService.get<string>('NODE_ENV') !== 'production'
+            level: process.env.NODE_ENV !== 'production' ? 'debug' : 'info',
+            // install 'pino-pretty' package in order to use the following option
+            transport: configService.get<string>('NODE_ENV') !== 'production' ? { target: 'pino-pretty' } : undefined,
+            useLevelLabels: true
           }
         }
       }

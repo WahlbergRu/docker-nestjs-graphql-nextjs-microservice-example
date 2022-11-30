@@ -1,12 +1,12 @@
-FROM node:18-alpine as build
+FROM node:16-alpine as build
 
 WORKDIR /usr/share/api-gateway
 
-COPY dist package.json ./
+ADD dist package.json ./
 
 RUN npm install --production
 
-FROM node:18-alpine
+FROM node:16-alpine
 
 WORKDIR /usr/share/api-gateway
 

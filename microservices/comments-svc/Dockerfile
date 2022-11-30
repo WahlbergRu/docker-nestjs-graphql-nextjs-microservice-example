@@ -1,4 +1,4 @@
-FROM node:18-alpine as build
+FROM node:16-alpine as build
 
 WORKDIR /usr/share/comments-svc
 
@@ -7,7 +7,7 @@ ADD dist package.json ./
 RUN apk add --no-cache make g++ python3 postgresql-dev \
   && npm install --production
 
-FROM node:18-alpine
+FROM node:16-alpine
 
 RUN apk add --no-cache libpq
 
