@@ -2,8 +2,7 @@
 docker/nestjs/graphql/nextjs/reactjs microservice example for showing my nodejs/js skills
 using gRPC under the hood
 
-![Architecture Diagram]
-(https://raw.githubusercontent.com/WahlbergRu/docker-nestjs-graphql-nextjs-microservice-example/main/docs/img/architecture.png)
+![Architecture Diagram](https://raw.githubusercontent.com/WahlbergRu/docker-nestjs-graphql-nextjs-microservice-example/main/docs/img/architecture.png)
 
 For windows running
 
