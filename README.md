@@ -2,6 +2,8 @@
 docker/nestjs/graphql/nextjs/reactjs microservice example for showing my nodejs/js skills
 using gRPC under the hood
 
+![Architecture Diagram]
+
 For windows running
 
 run chmod for permission
