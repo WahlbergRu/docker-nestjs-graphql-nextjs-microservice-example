@@ -11,16 +11,14 @@ import { CommentDto } from './comment.dto'
 
 @Injectable()
 export class CommentsService implements ICommentsService {
+  private readonly logger = new PinoLogger({ renameContext: CommentsService.name })
   constructor(
     @InjectModel(Comment)
-    private readonly repo: typeof Comment,
-    private readonly logger: PinoLogger
-  ) {
-    logger.setContext(CommentsService.name)
-  }
+    private readonly repo: typeof Comment
+  ) {}
 
   async find(query?: FindAndCountOptions): Promise<FindAndCountOptions<Comment>> {
-    this.logger.info('CommentsService#findAll.call %o', query)
+    this.logger.warn('CommentsService#findAll.call %o', query)
 
     // @ts-ignore
     const result: FindAndCountOptions<Comment> = await this.repo.findAndPaginate({
@@ -29,58 +27,58 @@ export class CommentsService implements ICommentsService {
       paranoid: false
     })
 
-    this.logger.info('CommentsService#findAll.result %o', result)
+    this.logger.warn('CommentsService#findAll.result %o', result)
 
     return result
   }
 
   async findById(id: string): Promise<Comment> {
-    this.logger.info('CommentsService#findById.call %o', id)
+    this.logger.warn('CommentsService#findById.call %o', id)
 
     const result: Comment = await this.repo.findByPk(id, {
       raw: true
     })
 
-    this.logger.info('CommentsService#findById.result %o', result)
+    this.logger.warn('CommentsService#findById.result %o', result)
 
     return result
   }
 
   async findOne(query: FindOptions): Promise<Comment> {
-    this.logger.info('CommentsService#findOne.call %o', query)
+    this.logger.warn('CommentsService#findOne.call %o', query)
 
     const result: Comment = await this.repo.findOne({
       ...query,
       raw: true
     })
 
-    this.logger.info('CommentsService#findOne.result %o', result)
+    this.logger.warn('CommentsService#findOne.result %o', result)
 
     return result
   }
 
   async count(query?: FindOptions): Promise<number> {
-    this.logger.info('CommentsService#count.call %o', query)
+    this.logger.warn('CommentsService#count.call %o', query)
 
     const result: number = await this.repo.count(query)
 
-    this.logger.info('CommentsService#count.result %o', result)
+    this.logger.warn('CommentsService#count.result %o', result)
 
     return result
   }
 
   async create(commentDto: CommentDto): Promise<Comment> {
-    this.logger.info('CommentsService#create.call %o', commentDto)
+    this.logger.warn('CommentsService#create.call %o', commentDto)
 
     const result: Comment = await this.repo.create(commentDto)
 
-    this.logger.info('CommentsService#create.result %o', result)
+    this.logger.warn('CommentsService#create.result %o', result)
 
     return result
   }
 
   async update(id: string, comment: CommentDto): Promise<Comment> {
-    this.logger.info('CommentsService#update.call %o', comment)
+    this.logger.warn('CommentsService#update.call %o', comment)
 
     const record: Comment = await this.repo.findByPk(id)
 
@@ -88,17 +86,17 @@ export class CommentsService implements ICommentsService {
 
     const result: Comment = await record.update(comment)
 
-    this.logger.info('CommentsService#update.result %o', result)
+    this.logger.warn('CommentsService#update.result %o', result)
 
     return result
   }
 
   async destroy(query?: FindOptions): Promise<number> {
-    this.logger.info('CommentsService#destroy.call %o', query)
+    this.logger.warn('CommentsService#destroy.call %o', query)
 
     const result: number = await this.repo.destroy(query)
 
-    this.logger.info('CommentsService#destroy.result %o', result)
+    this.logger.warn('CommentsService#destroy.result %o', result)
 
     return result
   }

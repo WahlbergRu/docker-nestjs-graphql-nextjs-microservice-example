@@ -1,4 +1,4 @@
-FROM node:16-alpine as build
+FROM node:18-alpine as build
 
 WORKDIR /usr/share/mailer-svc
 
@@ -6,7 +6,7 @@ ADD dist package.json ./
 
 RUN npm install --production
 
-FROM node:16-alpine
+FROM node:18-alpine
 
 ADD https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/v0.3.2/grpc_health_probe-linux-amd64 /bin/grpc_health_probe
 

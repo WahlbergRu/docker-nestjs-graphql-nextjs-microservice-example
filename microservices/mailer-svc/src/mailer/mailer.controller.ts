@@ -18,7 +18,7 @@ export class MailerController {
       data: JSON.parse(Buffer.from(input.data).toString())
     }
 
-    this.logger.info('MailerController#send.call %o', mailInput)
+    this.logger.warn('MailerController#send.call %o', mailInput)
 
     let subject = ''
 
@@ -46,7 +46,7 @@ export class MailerController {
       context: mailInput.data
     })
 
-    this.logger.info('MailerController#sent')
+    this.logger.warn('MailerController#sent')
 
     return { isSent: true }
   }

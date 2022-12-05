@@ -14,7 +14,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "copy:protos": "cpy \"../../_proto\" \"./src\""
+    "copy:protos": "cpy \"../../_proto\" \"./src/_proto\""
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.7.3",

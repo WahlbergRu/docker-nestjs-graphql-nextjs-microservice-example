@@ -11,12 +11,11 @@ import { PostDto } from './post.dto'
 
 @Injectable()
 export class PostsService implements IPostsService {
-  constructor(@InjectModel(Post) private readonly repo: typeof Post, private readonly logger: PinoLogger) {
-    logger.setContext(PostsService.name)
-  }
+  private readonly logger = new PinoLogger({ renameContext: PostsService.name })
+  constructor(@InjectModel(Post) private readonly repo: typeof Post) {}
 
   async find(query?: FindAndCountOptions): Promise<FindAndCountOptions<Post>> {
-    this.logger.info('PostsService#findAll.call %o', query)
+    this.logger.warn('PostsService#findAll.call %o', query)
 
     // @ts-ignore
     const result: FindAndCountOptions<Post> = await this.repo.findAll({
@@ -25,58 +24,58 @@ export class PostsService implements IPostsService {
       paranoid: false
     })
 
-    this.logger.info('PostsService#findAll.result %o', result)
+    this.logger.warn('PostsService#findAll.result %o', result)
 
     return result
   }
 
   async findById(id: string): Promise<Post> {
-    this.logger.info('PostsService#findById.call %o', id)
+    this.logger.warn('PostsService#findById.call %o', id)
 
     const result: Post = await this.repo.findByPk(id, {
       raw: true
     })
 
-    this.logger.info('PostsService#findById.result %o', result)
+    this.logger.warn('PostsService#findById.result %o', result)
 
     return result
   }
 
   async findOne(query: FindOptions): Promise<Post> {
-    this.logger.info('PostsService#findOne.call %o', query)
+    this.logger.warn('PostsService#findOne.call %o', query)
 
     const result: Post = await this.repo.findOne({
       ...query,
       raw: true
     })
 
-    this.logger.info('PostsService#findOne.result %o', result)
+    this.logger.warn('PostsService#findOne.result %o', result)
 
     return result
   }
 
   async count(query?: FindOptions): Promise<number> {
-    this.logger.info('PostsService#count.call %o', query)
+    this.logger.warn('PostsService#count.call %o', query)
 
     const result: number = await this.repo.count(query)
 
-    this.logger.info('PostsService#count.result %o', result)
+    this.logger.warn('PostsService#count.result %o', result)
 
     return result
   }
 
   async create(commentDto: PostDto): Promise<Post> {
-    this.logger.info('PostsService#create.call %o', commentDto)
+    this.logger.warn('PostsService#create.call %o', commentDto)
 
     const result: Post = await this.repo.create(commentDto)
 
-    this.logger.info('PostsService#create.result %o', result)
+    this.logger.warn('PostsService#create.result %o', result)
 
     return result
   }
 
   async update(id: string, comment: PostDto): Promise<Post> {
-    this.logger.info('PostsService#update.call %o', comment)
+    this.logger.warn('PostsService#update.call %o', comment)
 
     const record: Post = await this.repo.findByPk(id)
 
@@ -84,17 +83,17 @@ export class PostsService implements IPostsService {
 
     const result: Post = await record.update(comment)
 
-    this.logger.info('PostsService#update.result %o', result)
+    this.logger.warn('PostsService#update.result %o', result)
 
     return result
   }
 
   async destroy(query?: FindOptions): Promise<number> {
-    this.logger.info('PostsService#destroy.call %o', query)
+    this.logger.warn('PostsService#destroy.call %o', query)
 
     const result: number = await this.repo.destroy(query)
 
-    this.logger.info('PostsService#destroy.result %o', result)
+    this.logger.warn('PostsService#destroy.result %o', result)
 
     return result
   }

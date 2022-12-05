@@ -15,7 +15,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "generate:typings": "ts-node ./src/graphql/generate-typings",
-    "copy:protos": "cpy \"../_proto\" \"./src\""
+    "copy:protos": "cpy \"../_proto\" \"./src/_proto\""
   },
   "dependencies": {
     "@apollo/gateway": "^2.2.1",
@@ -42,11 +42,12 @@
     "graphql-type-json": "0.3.2",
     "ioredis": "5.2.4",
     "lodash": "4.17.21",
+    "nestjs-pino": "3.1.1",
     "passport": "0.6.0",
     "passport-jwt": "4.0.0",
-    "reflect-metadata": "0.1.13",
-    "nestjs-pino": "3.1.1",
     "pino-http": "8.2.1",
+    "pino-pretty": "^9.1.1",
+    "reflect-metadata": "0.1.13",
     "rxjs": "7.5.7",
     "ts-morph": "^16.0.0"
   },
@@ -72,7 +73,6 @@
     "faker": "6.6.6",
     "jest": "29.3.1",
     "jest-extended": "3.2.0",
-    "pino-pretty": "9.1.1",
     "prettier": "2.8.0",
     "rimraf": "3.0.2",
     "ts-jest": "29.0.3",

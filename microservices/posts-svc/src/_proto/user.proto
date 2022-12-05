@@ -32,13 +32,9 @@ message UpdateUserInput {
   User data = 2;
 }
 
-message FindUsersPayload {
-  repeated UserEdge edges = 1;
-  commons.PageInfo pageInfo = 2;
-}
+message FindUsersPayload {}
 
 service UsersService {
-  rpc find (commons.Query) returns (FindUsersPayload) {}
   rpc findById (commons.Id) returns (User) {}
   rpc findOne (commons.Query) returns (User) {}
   rpc count (commons.Query) returns (commons.Count) {}

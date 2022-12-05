@@ -30,13 +30,9 @@ message UpdateCommentInput {
   Comment data = 2;
 }
 
-message FindCommentsPayload {
-  repeated CommentEdge edges = 1;
-  commons.PageInfo pageInfo = 2;
-}
+message FindCommentsPayload {}
 
 service CommentsService {
-  rpc find (commons.Query) returns (FindCommentsPayload) {}
   rpc findById (commons.Id) returns (Comment) {}
   rpc findOne (commons.Query) returns (Comment) {}
   rpc count (commons.Query) returns (commons.Count) {}

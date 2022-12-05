@@ -5,14 +5,16 @@
   "scripts": {
     "docs:proto-gen": "sh scripts/generate-proto-docs.sh",
     "script:install": "sh scripts/install.sh",
+    "script:install-force": "sh scripts/install-force.sh",
     "script:lint": "sh scripts/lint.sh",
     "script:build": "sh scripts/build.sh",
     "script:copy-protos": "sh scripts/copy-protos.sh",
     "script:custom": "sh scripts/custom.sh",
+    "script:full": "sh scripts/copy-protos.sh && sh scripts/lint.sh && sh scripts/build.sh",
     "docker:build": "docker-compose build",
     "docker:start": "docker-compose up",
     "docker:teardown": "docker-compose down",
-    "start": "npm run install && npm run lint && npm run build && npm run docker:build && npm run docker:start"
+    "start": "npm run script:install && npm run script:lint && npm run script:build && npm run docker:start"
   },
   "repository": {
     "type": "git",
@@ -23,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/WahlbergRu/docker-nestjs-graphql-nextjs-microservice-example/issues"
   },
-  "homepage": "https://github.com/WahlbergRu/docker-nestjs-graphql-nextjs-microservice-example#readme"
+  "homepage": "https://github.com/WahlbergRu/docker-nestjs-graphql-nextjs-microservice-example#readme",
+  "dependencies": {
+    "pino-pretty": "^9.1.1"
+  }
 }

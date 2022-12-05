@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package commons;
+
+message Id {
+  string id = 1;
+}
+
+message Query {
+  repeated string select = 1;
+  string where = 2;
+  repeated string orderBy = 3;
+  int32 limit = 4;
+  int32 offset = 5;
+}
+
+message Count {
+  int32 count = 1;
+}

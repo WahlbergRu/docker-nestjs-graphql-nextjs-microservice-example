@@ -56,8 +56,6 @@ const operatorsAliases: OperatorsAliases = {
         pinoHttp: {
           safe: true,
           level: process.env.NODE_ENV !== 'production' ? 'debug' : 'info',
-          // install 'pino-pretty' package in order to use the following option
-          transport: configService.get<string>('NODE_ENV') !== 'production' ? { target: 'pino-pretty' } : undefined,
           useLevelLabels: true
         }
       }),
@@ -72,7 +70,7 @@ const operatorsAliases: OperatorsAliases = {
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_DATABASE'),
-        logging: logger.info.bind(logger),
+        logging: (sql) => logger.info(sql),
         typeValidation: true,
         benchmark: true,
         native: true,
