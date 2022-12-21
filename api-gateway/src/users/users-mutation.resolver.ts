@@ -43,6 +43,8 @@ export class UsersMutationResolver implements OnModuleInit {
       })
     )
 
+    this.logger.warn('UsersMutation#create.result %o', updatedUser)
+
     return { user: updatedUser }
   }
 

@@ -12,6 +12,7 @@
     "script:custom": "sh scripts/custom.sh",
     "script:full": "sh scripts/copy-protos.sh && sh scripts/lint.sh && sh scripts/build.sh",
     "docker:build": "docker-compose build",
+    "predocker:start": "npm run docker:teardown && npm run script:full && npm run docker:build",
     "docker:start": "docker-compose up",
     "docker:teardown": "docker-compose down",
     "start": "npm run script:install && npm run script:lint && npm run script:build && npm run docker:start"

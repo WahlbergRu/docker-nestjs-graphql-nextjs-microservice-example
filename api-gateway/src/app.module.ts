@@ -1,8 +1,9 @@
+import { DateTimeScalar } from './graphql/datetime'
 import { join } from 'path'
 
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
-import { GraphQLModule, GqlModuleOptions } from '@nestjs/graphql'
+import { GraphQLModule, GqlModuleOptions, GraphQLISODateTime } from '@nestjs/graphql'
 
 import { LoggerModule, PinoLogger } from 'nestjs-pino'
 
@@ -43,7 +44,7 @@ import { ApolloDriver } from '@nestjs/apollo'
         // subscriptions: '/',
         typePaths: ['./**/*.graphql'],
         resolvers: {
-          DateTime: DateTimeResolver,
+          DateTime: DateTimeScalar,
           EmailAddress: EmailAddressResolver,
           UnsignedInt: UnsignedIntResolver,
           JSONObject: GraphQLJSONObject

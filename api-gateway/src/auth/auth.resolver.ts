@@ -13,6 +13,7 @@ import { IUsersService } from '../users/users.interface'
 import { User, SignupUserInput, UserPayload, LoginUserInput } from '../graphql/typings'
 
 import { PasswordUtils } from '../utils/password.utils'
+import { lastValueFrom } from 'rxjs'
 
 @Resolver()
 export class AuthResolver implements OnModuleInit {
@@ -37,20 +38,22 @@ export class AuthResolver implements OnModuleInit {
 
   @Mutation()
   async signup(@Args('data') data: SignupUserInput): Promise<UserPayload> {
-    const { count } = await this.usersService
-      .count({
+    const { count } = await lastValueFrom(
+      this.usersService.count({
         where: JSON.stringify({ email: data.email })
       })
-      .toPromise()
+    )
 
     if (count >= 1) throw new Error('Email taken')
 
-    const user: User = await this.usersService
-      .create({
+    const user: User = await lastValueFrom(
+      this.usersService.create({
         ...data,
         password: await this.passwordUtils.hash(data.password)
       })
-      .toPromise()
+    )
+
+    this.logger.warn('UsersMutation#create.result %o', user.createdAt)
 
     return { user }
   }
@@ -59,11 +62,11 @@ export class AuthResolver implements OnModuleInit {
   async login(@Context() context: any, @Args('data') data: LoginUserInput): Promise<UserPayload> {
     const { res } = context
 
-    const user: any = await this.usersService
-      .findOne({
+    const user: any = await lastValueFrom(
+      this.usersService.findOne({
         where: JSON.stringify({ email: data.email })
       })
-      .toPromise()
+    )
 
     if (isEmpty(user)) throw new Error('Unable to login')
 

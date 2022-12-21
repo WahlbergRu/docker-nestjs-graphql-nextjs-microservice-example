@@ -34,14 +34,7 @@ export class UsersQueryResolver implements OnModuleInit {
 
   @Query('users')
   @UseGuards(GqlAuthGuard)
-  async getUsers(
-    @Args('q') q: string,
-
-    @Args('limit') limit: number,
-    @Args('offset') offset: number,
-    @Args('filterBy') filterBy: any,
-    @Args('orderBy') orderBy: string
-  ): Promise<UsersConnection> {
+  async getUsers(@Args('q') q: string, @Args('limit') limit: number, @Args('offset') offset: number, @Args('filterBy') filterBy: any, @Args('orderBy') orderBy: string): Promise<UsersConnection> {
     const query = { where: {} }
 
     if (!isEmpty(q)) merge(query, { where: { name: { _iLike: q } } })
