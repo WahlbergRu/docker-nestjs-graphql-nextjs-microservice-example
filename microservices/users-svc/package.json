@@ -14,7 +14,6 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "copy:protos": "cpy \"../../_proto\" \"./src/_proto\""
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.7.3",
@@ -47,7 +46,6 @@
     "@types/validator": "^13.7.10",
     "@typescript-eslint/eslint-plugin": "5.45.0",
     "@typescript-eslint/parser": "5.45.0",
-    "cpy-cli": "4.2.0",
     "eslint": "8.28.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",

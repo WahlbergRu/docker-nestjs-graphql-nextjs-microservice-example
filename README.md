@@ -11,8 +11,3 @@ run chmod for permission
 ```
 chmod +x ./scripts
 ```
-
-install cpy because it's doesn't work internal from dev dep
-```
-npm install -g cpy-cli
-```
