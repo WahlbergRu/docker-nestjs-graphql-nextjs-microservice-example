@@ -8,6 +8,7 @@ import { IUsersService } from './users.interface'
 
 import { User } from './user.model'
 import { UserDto } from './user.dto'
+import { ICount } from '../commons/commons.interface'
 
 @Injectable()
 export class UsersService implements IUsersService {
@@ -15,17 +16,18 @@ export class UsersService implements IUsersService {
 
   constructor(@InjectModel(User) private readonly repo: typeof User) {}
 
-  async find(query?: FindAndCountOptions): Promise<FindAndCountOptions<User>> {
+  async find(query?: FindAndCountOptions): Promise<{ rows: User[]; pageInfo: ICount }> {
     this.logger.warn('UsersService#findAll.call %o', query)
 
     // @ts-ignore
-    const result: FindAndCountOptions<User> = await this.repo.findAndPaginate({
+    const result: { rows: Post[]; count: number; pageInfo: ICount } = await this.repo.findAndCountAll({
       ...query,
-      raw: true,
       paranoid: false
     })
 
-    this.logger.warn('UsersService#findAll.result %o', result)
+    result.pageInfo = { count: result.count }
+
+    this.logger.info('UsersService#findAll.result %o', result)
 
     return result
   }

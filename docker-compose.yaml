@@ -190,6 +190,8 @@ services:
       - "postsdomain"
     expose:
       - "5432"
+    ports:
+      - "8200:5432"
     volumes:
       - postsdata:/var/lib/postgresql/data
     environment:

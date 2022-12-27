@@ -1,7 +1,8 @@
-import { FindAndCountOptions, FindOptions } from 'sequelize'
+import { FindOptions } from 'sequelize'
 
 import { Comment } from './comment.model'
 import { CommentDto } from './comment.dto'
+import { ICount } from '../commons/commons.interface'
 
 export interface ICommentUpdateInput {
   id: string
@@ -9,7 +10,7 @@ export interface ICommentUpdateInput {
 }
 
 export interface ICommentsService {
-  find(query?: FindAndCountOptions): Promise<FindAndCountOptions<Comment>>
+  find(query?: FindOptions): Promise<{ rows: Comment[]; pageInfo: ICount }>
   findById(id: string): Promise<Comment>
   findOne(query?: FindOptions): Promise<Comment>
   count(query?: FindOptions): Promise<number>

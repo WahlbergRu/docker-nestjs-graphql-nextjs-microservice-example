@@ -32,14 +32,7 @@ export class PostsQueryResolver implements OnModuleInit {
   }
 
   @Query('posts')
-  async getPosts(
-    @Args('q') q: string,
-
-    @Args('limit') limit: number,
-    @Args('offset') offset: number,
-    @Args('filterBy') filterBy: any,
-    @Args('orderBy') orderBy: string
-  ): Promise<PostsConnection> {
+  async getPosts(@Args('q') q: string, @Args('limit') limit: number, @Args('offset') offset: number, @Args('filterBy') filterBy: any, @Args('orderBy') orderBy: string): Promise<PostsConnection> {
     const query = { where: {} }
 
     if (!isEmpty(q)) merge(query, { where: { title: { _iLike: q } } })
@@ -56,7 +49,7 @@ export class PostsQueryResolver implements OnModuleInit {
 
   @Query('post')
   async getPost(@Args('id') id: string): Promise<Post> {
-    return this.postsService.findById({ id }).toPromise()
+    return await lastValueFrom(this.postsService.findById({ id }))
   }
 
   @Query('postCount')
@@ -93,6 +86,7 @@ export class PostsQueryResolver implements OnModuleInit {
     if (!isEmpty(q)) merge(query, { where: { title: { _iLike: q } } })
 
     merge(query, await this.queryUtils.buildQuery(filterBy, orderBy, limit, offset))
+    this.logger.info('========USER %o', query)
 
     return await lastValueFrom(
       this.postsService.find({

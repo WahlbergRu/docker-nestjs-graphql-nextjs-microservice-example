@@ -20,11 +20,11 @@ export class UsersController {
     logger.setContext(UsersController.name)
   }
 
-  // @GrpcMethod('UsersService', 'find')
-  async find(query: IQuery): Promise<FindAndCountOptions<User>> {
+  @GrpcMethod('UsersService', 'find')
+  async find(query: IQuery): Promise<{ rows: User[]; pageInfo: ICount }> {
     this.logger.warn('UsersController#findAll.call %o', query)
 
-    const result = await this.service.find({
+    const results = await this.service.find({
       attributes: !isEmpty(query.select) ? ['id'].concat(query.select) : undefined,
       where: !isEmpty(query.where) ? JSON.parse(query.where) : undefined,
       order: !isEmpty(query.orderBy) ? query.orderBy : undefined,
@@ -32,9 +32,9 @@ export class UsersController {
       offset: !isEmpty(query.offset) ? query.offset : 0
     })
 
-    this.logger.warn('UsersController#findAll.result %o', result)
+    this.logger.warn('UsersController#findAll.result %o', results)
 
-    return result
+    return results
   }
 
   @GrpcMethod('UsersService', 'findById')

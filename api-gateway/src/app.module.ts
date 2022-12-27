@@ -3,11 +3,11 @@ import { join } from 'path'
 
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
-import { GraphQLModule, GqlModuleOptions, GraphQLISODateTime } from '@nestjs/graphql'
+import { GraphQLModule } from '@nestjs/graphql'
 
 import { LoggerModule, PinoLogger } from 'nestjs-pino'
 
-import { DateTimeResolver, EmailAddressResolver, UnsignedIntResolver } from 'graphql-scalars'
+import { EmailAddressResolver, UnsignedIntResolver } from 'graphql-scalars'
 import { GraphQLJSONObject } from 'graphql-type-json'
 
 import { AuthModule } from './auth/auth.module'

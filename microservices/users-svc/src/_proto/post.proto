@@ -25,12 +25,15 @@ message CreatePostInput {
 message UpdatePostInput {
   string id = 1;
   Post data = 2;
-}
+} 
 
 message FindPostsPayload {
+  repeated Post rows = 1;
+  commons.Count pageInfo = 2;
 }
 
 service PostsService {
+  rpc find (commons.Query) returns (FindPostsPayload) {}
   rpc findById (commons.Id) returns (Post) {}
   rpc findOne (commons.Query) returns (Post) {}
   rpc count (commons.Query) returns (commons.Count) {}

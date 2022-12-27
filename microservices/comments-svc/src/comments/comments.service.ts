@@ -8,6 +8,7 @@ import { ICommentsService } from './comments.interface'
 
 import { Comment } from './comment.model'
 import { CommentDto } from './comment.dto'
+import { ICount } from '../commons/commons.interface'
 
 @Injectable()
 export class CommentsService implements ICommentsService {
@@ -17,17 +18,18 @@ export class CommentsService implements ICommentsService {
     private readonly repo: typeof Comment
   ) {}
 
-  async find(query?: FindAndCountOptions): Promise<FindAndCountOptions<Comment>> {
+  async find(query?: FindAndCountOptions): Promise<{ rows: Comment[]; pageInfo: ICount }> {
     this.logger.warn('CommentsService#findAll.call %o', query)
 
     // @ts-ignore
-    const result: FindAndCountOptions<Comment> = await this.repo.findAndPaginate({
+    const result: { rows: Post[]; count: number; pageInfo: ICount } = await this.repo.findAndCountAll({
       ...query,
-      raw: true,
       paranoid: false
     })
 
-    this.logger.warn('CommentsService#findAll.result %o', result)
+    result.pageInfo = { count: result.count }
+
+    this.logger.info('CommentsService#findAll.result %o', result)
 
     return result
   }

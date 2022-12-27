@@ -77,6 +77,6 @@ export class UsersQueryResolver implements OnModuleInit {
   @Query('me')
   @UseGuards(GqlAuthGuard)
   async getProfile(@CurrentUser() user: User): Promise<User> {
-    return this.usersService.findById({ id: user.id }).toPromise()
+    return await lastValueFrom(this.usersService.findById({ id: user.id }))
   }
 }

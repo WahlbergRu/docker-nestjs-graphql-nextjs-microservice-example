@@ -12,7 +12,6 @@ import { ICommentsService, ICommentUpdateInput } from './comments.interface'
 
 import { Comment } from './comment.model'
 import { CommentDto } from './comment.dto'
-import { FindOptions } from 'sequelize'
 
 const { map } = Aigle
 
@@ -26,17 +25,19 @@ export class CommentsController {
     logger.setContext(CommentsController.name)
   }
 
-  // @GrpcMethod('CommentsService', 'find')
-  async find(query: IQuery): Promise<FindOptions<Comment>> {
+  @GrpcMethod('CommentsService', 'find')
+  async find(query: IQuery): Promise<{ rows: Comment[]; pageInfo: ICount }> {
     this.logger.warn('CommentsController#findAll.call %o', query)
 
-    const results = this.service.find({
+    const results = await this.service.find({
       attributes: !isEmpty(query.select) ? ['id'].concat(query.select) : undefined,
       where: !isEmpty(query.where) ? JSON.parse(query.where) : undefined,
       order: !isEmpty(query.orderBy) ? query.orderBy : undefined,
       limit: !isNil(query.limit) ? query.limit : 25,
-      offset: !isNil(query.offset) ? query.limit : 25
+      offset: !isNil(query.offset) ? query.offset : 0
     })
+
+    this.logger.warn('CommentsController#findAll.result %o', results)
 
     return results
   }

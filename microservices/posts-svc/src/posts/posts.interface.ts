@@ -1,4 +1,4 @@
-import { FindAndCountOptions, FindOptions } from 'sequelize'
+import { FindOptions } from 'sequelize'
 
 import { Post } from './post.model'
 import { PostDto } from './post.dto'
@@ -8,8 +8,12 @@ export interface IPostUpdateInput {
   data: PostDto
 }
 
+export interface ICount {
+  count: number
+}
+
 export interface IPostsService {
-  find(query?: FindOptions): Promise<FindAndCountOptions<Post>>
+  find(query?: FindOptions): Promise<{ rows: Post[]; pageInfo: ICount }>
   findById(id: string): Promise<Post>
   findOne(query?: FindOptions): Promise<Post>
   count(query?: FindOptions): Promise<number>

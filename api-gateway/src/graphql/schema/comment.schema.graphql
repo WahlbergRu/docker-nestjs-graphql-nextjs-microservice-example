@@ -9,13 +9,8 @@ type Comment {
 }
 
 type CommentsConnection {
-  edges: [CommentEdge!]!
+  rows: [Comment!]!
   pageInfo: PageInfo!
-}
-
-type CommentEdge {
-  node: Comment!
-  cursor: String!
 }
 
 type CommentPayload {

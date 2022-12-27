@@ -15,11 +15,6 @@ message User {
   int32 version = 8;
 }
 
-message UserEdge {
-  User node = 1;
-  string cursor = 2;
-}
-
 message CreateUserInput {
   string name = 1;
   string email = 2;
@@ -32,9 +27,13 @@ message UpdateUserInput {
   User data = 2;
 }
 
-message FindUsersPayload {}
+message FindUsersPayload {
+  repeated User rows = 1;
+  commons.Count pageInfo = 2;
+}
 
 service UsersService {
+  rpc find (commons.Query) returns (FindUsersPayload) {}
   rpc findById (commons.Id) returns (User) {}
   rpc findOne (commons.Query) returns (User) {}
   rpc count (commons.Query) returns (commons.Count) {}

@@ -12,7 +12,7 @@ import { IPostsService, IPostUpdateInput } from './posts.interface'
 
 import { Post } from './post.model'
 import { PostDto } from './post.dto'
-import { FindAndCountOptions, FindOptions } from 'sequelize'
+import { FindAndCountOptions, FindOptions, GroupedCountResultItem } from 'sequelize'
 
 const { map } = Aigle
 
@@ -26,21 +26,21 @@ export class PostsController {
     logger.setContext(PostsController.name)
   }
 
-  // @GrpcMethod('PostsService', 'find')
-  async find(query: IQuery): Promise<FindAndCountOptions<Post>> {
+  @GrpcMethod('PostsService', 'find')
+  async find(query: IQuery): Promise<{ rows: Post[]; pageInfo: ICount }> {
     this.logger.warn('PostsController#findAll.call %o', query)
 
-    const result = await this.service.find({
+    const results = await this.service.find({
       attributes: !isEmpty(query.select) ? ['id'].concat(query.select) : undefined,
       where: !isEmpty(query.where) ? JSON.parse(query.where) : undefined,
       order: !isEmpty(query.orderBy) ? query.orderBy : undefined,
       limit: !isNil(query.limit) ? query.limit : 25,
-      offset: !isNil(query.limit) ? query.offset : 25
+      offset: !isNil(query.offset) ? query.offset : 0
     })
 
-    this.logger.warn('PostsController#findAll.result %o', result)
+    this.logger.warn('PostsController#findAll.result %o', results)
 
-    return result
+    return results
   }
 
   @GrpcMethod('PostsService', 'findById')

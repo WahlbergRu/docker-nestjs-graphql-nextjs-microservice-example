@@ -1,7 +1,8 @@
 #!/bin/bash
 
-cd api-gateway && npm run copy:protos && cd -
-cd microservices/comments-svc && npm run copy:protos && cd -
-cd microservices/posts-svc && npm run copy:protos && cd -
-cd microservices/users-svc && npm run copy:protos && cd -
-cd microservices/mailer-svc && npm run copy:protos && cd -
+cp -r ./_proto ./api-gateway/src/ &&
+cp -r ./_proto ./microservices/comments-svc/src/ &&
+cp -r ./_proto ./microservices/mailer-svc/src/ &&
+cp -r ./_proto ./microservices/posts-svc/src/ &&
+cp -r ./_proto ./microservices/users-svc/src/
+     

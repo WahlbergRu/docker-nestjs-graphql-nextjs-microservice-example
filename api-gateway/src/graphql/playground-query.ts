@@ -2,7 +2,7 @@ export const playgroundQuery = `mutation signup {
   signup(
     data: {
       name: "Sample User"
-      email: "user1@example.com"
+      email: "user90@example.com"
       password: "admin1234"
       age: 18
     }
@@ -103,18 +103,13 @@ mutation createPost {
         id
         name
       }
-      comments(first: 50) {
-        edges {
-          node {
-            id
-            text
-          }
+      comments(limit: 20, offset: 0) {
+        rows {
+          id
+          text
         }
         pageInfo {
-          startCursor
-          endCursor
-          hasNextPage
-          hasPreviousPage
+          count
         }
       }
     }
@@ -141,18 +136,13 @@ mutation updatePost {
         id
         name
       }
-      comments(first: 50) {
-        edges {
-          node {
-            id
-            text
-          }
+      comments(limit: 20, offset: 0) {
+        rows {
+          id
+          text
         }
         pageInfo {
-          startCursor
-          endCursor
-          hasNextPage
-          hasPreviousPage
+          count
         }
       }
     }
@@ -226,185 +216,216 @@ query me {
     createdAt
     updatedAt
     version
-    posts(first: 50) {
-      edges {
-        node {
-          id
-          title
-          body
-        }
-      }
+    posts(limit: 20, offset: 0) {
+      rows {
+        id
+        title
+        body
+      },
       pageInfo {
-        startCursor
-        endCursor
-        hasNextPage
-        hasPreviousPage
+        count
       }
     }
-    comments(first: 50) {
-      edges {
-        node {
-          id
-          text
-        }
+    comments(limit: 20, offset: 0) {
+      rows {
+        id
+        text
       }
       pageInfo {
-        startCursor
-        endCursor
-        hasNextPage
-        hasPreviousPage
+        count
       }
     }
   }
 }
 
 query myPosts {
-  myPosts(first: 50) {
-    edges {
-      node {
-        id
-        title
-        body
-        createdAt
-        updatedAt
-        version
-      }
-    }
+  myPosts(limit: 20, offset: 0) {
+    rows {
+      id
+      title
+      body
+      createdAt
+      updatedAt
+      version
+    },
     pageInfo {
-      startCursor
-      endCursor
-      hasNextPage
-      hasPreviousPage
+      count
     }
   }
 }
 
 query findEverything {
-  users: users(first: 50) {
-    edges {
-      node {
-        id
-        name
-        email
-        age
-        createdAt
-        updatedAt
-        version
-      }
+  users: users(limit: 20, offset: 0) {
+    rows {
+      id
+      name
+      email
+      age
+      createdAt
+      updatedAt
+      version
+    }
+
+  }
+  posts: posts(limit: 20, offset: 0) {
+    rows {
+      id
+      title
+      body
+      published
+      createdAt
+      updatedAt
+      version
     }
     pageInfo {
-      startCursor
-      endCursor
-      hasNextPage
-      hasPreviousPage
+      count
     }
   }
-  posts: posts(first: 50) {
-    edges {
-      node {
-        id
-        title
-        body
-        published
-        createdAt
-        updatedAt
-        version
-      }
+  comments: comments(limit: 20, offset: 0) {
+    rows {
+      id
+      text
+      createdAt
+      updatedAt
+      version
     }
     pageInfo {
-      startCursor
-      endCursor
-      hasNextPage
-      hasPreviousPage
-    }
-  }
-  comments: comments(first: 50) {
-    edges {
-      node {
-        id
-        text
-        createdAt
-        updatedAt
-        version
-      }
-    }
-    pageInfo {
-      startCursor
-      endCursor
-      hasNextPage
-      hasPreviousPage
+      count
     }
   }
 }
 
 query findUsers {
-  users(first: 50) {
-    edges {
-      node {
-        id
-        name
-        email
-        age
-        createdAt
-        updatedAt
-        version
-      }
+  users(limit: 20, offset: 0) {
+    rows {
+      id
+      name
+      email
+      age
+      createdAt
+      updatedAt
+      version
     }
     pageInfo {
-      startCursor
-      endCursor
-      hasNextPage
-      hasPreviousPage
+      count
     }
   }
 }
 
 query findPosts {
-  posts(first: 50) {
-    edges {
-      node {
-        id
-        title
-        body
-        published
-        createdAt
-        updatedAt
-        version
-      }
+  posts(limit: 20, offset: 0) {
+    rows {
+      id
+      title
+      body
+      published
+      createdAt
+      updatedAt
+      version
     }
     pageInfo {
-      startCursor
-      endCursor
-      hasNextPage
-      hasPreviousPage
+      count
     }
   }
 }
 
 query findComments {
-  comments(first: 50) {
-    edges {
-      node {
-        id
-        text
-        createdAt
-        updatedAt
-        version
-      }
+  comments(limit: 20, offset: 0) {
+    rows {
+      id
+      text
+      createdAt
+      updatedAt
+      version
     }
     pageInfo {
-      startCursor
-      endCursor
-      hasNextPage
-      hasPreviousPage
+      count
     }
   }
 }
 
 query findUsersIncludingPostsAndComments {
-  users(first: 50) {
-    edges {
-      node {
+  users(limit: 20, offset: 0) {
+    rows {
+      id
+      name
+      email
+      age
+      createdAt
+      updatedAt
+      version
+      posts(limit: 20, offset: 0) {
+        rows {
+          id
+          title
+          body
+          published
+          createdAt
+          updatedAt
+          version
+        }
+        pageInfo {
+          count
+        }
+      }
+      comments(limit: 20, offset: 0) {
+        rows {
+          id
+          text
+          createdAt
+          updatedAt
+          version
+        }
+        pageInfo {
+          count
+        }
+      }
+    }
+  }
+}
+
+query findPostsIncludingCommentsWithAuthor {
+  posts(limit: 20, offset: 0) {
+    rows {
+      id
+      title
+      body
+      published
+      createdAt
+      updatedAt
+      version
+      author {
+        id
+        name
+        createdAt
+        updatedAt
+        version
+      }
+      comments(limit: 20, offset: 0) {
+        rows {
+          id
+          text
+          createdAt
+          updatedAt
+          version
+        }
+        pageInfo {
+          count
+        }
+      }
+    }
+  }
+}
+
+query findCommentsIncludingAuthor {
+  comments(limit: 20, offset: 0) {
+    rows {
+      id
+      text
+      createdAt
+      updatedAt
+      version
+      author {
         id
         name
         email
@@ -412,124 +433,10 @@ query findUsersIncludingPostsAndComments {
         createdAt
         updatedAt
         version
-        posts(first: 50) {
-          edges {
-            node {
-              id
-              title
-              body
-              published
-              createdAt
-              updatedAt
-              version
-            }
-          }
-          pageInfo {
-            startCursor
-            endCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-        comments(first: 50) {
-          edges {
-            node {
-              id
-              text
-              createdAt
-              updatedAt
-              version
-            }
-          }
-          pageInfo {
-            startCursor
-            endCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
       }
     }
     pageInfo {
-      startCursor
-      endCursor
-      hasNextPage
-      hasPreviousPage
-    }
-  }
-}
-
-query findPostsIncludingCommentsWithAuthor {
-  posts(first: 50) {
-    edges {
-      node {
-        id
-        title
-        body
-        published
-        createdAt
-        updatedAt
-        version
-        author {
-          id
-          name
-          createdAt
-          updatedAt
-          version
-        }
-        comments(first: 50) {
-          edges {
-            node {
-              id
-              text
-              createdAt
-              updatedAt
-              version
-            }
-          }
-          pageInfo {
-            startCursor
-            endCursor
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-      }
-    }
-    pageInfo {
-      startCursor
-      endCursor
-      hasNextPage
-      hasPreviousPage
-    }
-  }
-}
-
-query findCommentsIncludingAuthor {
-  comments(first: 50) {
-    edges {
-      node {
-        id
-        text
-        createdAt
-        updatedAt
-        version
-        author {
-          id
-          name
-          email
-          age
-          createdAt
-          updatedAt
-          version
-        }
-      }
-    }
-    pageInfo {
-      startCursor
-      endCursor
-      hasNextPage
-      hasPreviousPage
+      count
     }
   }
 }
@@ -671,5 +578,4 @@ mutation deleteAccount {
     count
   }
 }
-
 `

@@ -14,11 +14,6 @@ message Comment {
   int32 version = 7;
 }
 
-message CommentEdge {
-  Comment node = 1;
-  string cursor = 2;
-}
-
 message CreateCommentInput {
   string text = 1;
   string author = 2;
@@ -30,9 +25,13 @@ message UpdateCommentInput {
   Comment data = 2;
 }
 
-message FindCommentsPayload {}
+message FindCommentsPayload {
+  repeated Comment rows = 1;
+  commons.Count pageInfo = 2;
+}
 
 service CommentsService {
+  rpc find (commons.Query) returns (FindCommentsPayload) {}
   rpc findById (commons.Id) returns (Comment) {}
   rpc findOne (commons.Query) returns (Comment) {}
   rpc count (commons.Query) returns (commons.Count) {}
