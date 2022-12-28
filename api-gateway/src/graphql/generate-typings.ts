@@ -6,5 +6,5 @@ const definitionsFactory = new GraphQLDefinitionsFactory()
 definitionsFactory.generate({
   typePaths: ['./**/*.schema.graphql'],
   path: join(__dirname, 'typings.ts'),
-  watch: true
+  watch: false
 })
