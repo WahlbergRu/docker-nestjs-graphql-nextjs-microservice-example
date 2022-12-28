@@ -23,4 +23,4 @@ npm run script:install
 npm run docker:start
 ```
 
-Open at localhost:3000
+Open at http://localhost:3000
