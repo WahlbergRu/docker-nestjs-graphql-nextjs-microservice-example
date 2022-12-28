@@ -11,3 +11,16 @@ run chmod for permission
 ```
 chmod +x ./scripts
 ```
+
+# Getting started
+
+Install all packages
+```
+npm run script:install 
+```
+
+```
+npm run docker:start
+```
+
+Open at localhost:3000
