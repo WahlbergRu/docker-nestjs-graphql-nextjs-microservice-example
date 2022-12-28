@@ -19,6 +19,7 @@ Install all packages
 npm run script:install 
 ```
 
+Run microservices
 ```
 npm run docker:start
 ```
